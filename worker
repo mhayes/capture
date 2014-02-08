@@ -62,8 +62,10 @@ outbound_capture_queue = sqs.queues[ENV["SQS_OUTBOUND_CAPTURE_QUEUE"]]
 outbound_comparison_queue = sqs.queues[ENV["SQS_OUTBOUND_COMPARISON_QUEUE"]]
 
 capture_queue.poll(opts) do |msg|
+  puts "CaptureQueue: #{msg.body.inspect}"
   page = Page.new(JSON.parse(msg.body))
   if page.capture!
-    outbound_comparison_queue.send_message(page.to_json)
+    outbound_capture_queue.send_message(page.to_json)
+    puts "Captured: #{page.to_json}"
   end
 end

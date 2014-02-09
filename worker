@@ -12,7 +12,7 @@ require 'pathname'
 
 ROOT_PATH = Pathname.new(File.absolute_path(File.join(File.dirname(__FILE__))))
 BIN_PATH = ROOT_PATH.join("bin")
-TMP_PATH = ROOT_PATH.join("tmp")
+CAPTURES_PATH = ROOT_PATH.join("captures")
 
 class Page
   def initialize(json)
@@ -26,7 +26,7 @@ class Page
   attr_reader :uuid, :id, :url, :selector, :width, :depository_url
 
   def cmd
-    run_cmd = "#{BIN_PATH.join("webkit2png")} -F -W #{width} -D #{TMP_PATH} -o #{uuid}"
+    run_cmd = "#{BIN_PATH.join("webkit2png")} -F -W #{width} -D #{CAPTURES_PATH} -o #{uuid}"
     if @selector
       run_cmd += " --selector=\"#{@selector}\""
     end
@@ -36,7 +36,7 @@ class Page
   def capture!
     success = system(cmd())
     return false if !success
-    img_pth = TMP_PATH.join("#{uuid}-full.png")
+    img_pth = CAPTURES_PATH.join("#{uuid}-full.png")
     success = system("pngquant #{img_pth}")
     return false if !success
     fs8_img_pth = "#{File.basename(img_pth, '.png')}-fs8.png"

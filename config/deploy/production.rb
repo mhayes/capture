@@ -8,6 +8,9 @@ role :app, %w{administrator@capture.screenbeacon.com}
 role :web, %w{administrator@capture.screenbeacon.com}
 role :db,  %w{administrator@capture.screenbeacon.com}
 
+set :rbenv_type, :systen
+set :rbenv_ruby, '2.1.0'
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server

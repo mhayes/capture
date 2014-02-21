@@ -42,7 +42,9 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute :ruby, :worker, :restart
+      within current_path do
+        execute :ruby, :worker, :restart
+      end
     end
   end
 

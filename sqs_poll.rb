@@ -21,7 +21,7 @@ class Page
     @selector = json["selector"]
     @width = json["width"]
     @uuid = SecureRandom.uuid
-    queue = json["outbound_queue"] || ENV["SQS_OUTBOUND_CAPTURE_QUEUE"]
+    queue = json["outbound_queue_url"] || ENV["SQS_OUTBOUND_CAPTURE_QUEUE"]
     @outbound_queue = sqs.queues[queue]
   end
 

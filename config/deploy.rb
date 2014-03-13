@@ -43,7 +43,8 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :ruby, :worker, :restart
+        execute "bin/god", "terminate"
+        execute "bin/god", "-c", "capture.god"
       end
     end
   end

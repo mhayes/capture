@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "aws-sdk"
 gem "dotenv"
-gem "daemons"
+gem "god"
 
 group :development do
   gem 'capistrano', '~> 3.1.0'

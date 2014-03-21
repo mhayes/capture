@@ -40,7 +40,9 @@ class Page
   def capture!
     success = system(cmd())
     return false if !success
-    img_pth = CAPTURES_PATH.join("#{uuid}-full.png")
+
+    img_pth = Dir.glob(CAPTURES_PATH.join("#{uuid}-*full.png")).first
+    return false unless img_pth
     success = system("pngquant #{img_pth}")
     return false if !success
     fs8_img_pth = "#{File.basename(img_pth, '.png')}-fs8.png"
